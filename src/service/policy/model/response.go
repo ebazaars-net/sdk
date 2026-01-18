@@ -7,6 +7,30 @@ type CheckResponse struct {
 	Matched    *CheckMatchedResponse `json:"matched,omitempty"`
 }
 
+type CheckChainEvaluationResponse struct {
+	MatchedViaScope string `json:"matched_via_scope"`
+	RequestedScope  string `json:"requested_scope"`
+}
+
+type CheckChainResponse struct {
+	Allowed    bool                         `json:"allowed"`
+	Decision   string                       `json:"decision"`
+	Evaluation CheckChainEvaluationResponse `json:"evaluation"`
+	Matched    *CheckMatchedResponse        `json:"matched,omitempty"`
+	ReasonCode string                       `json:"reason_code"`
+}
+
+type CheckBulkItemResponse struct {
+	Allowed    bool                  `json:"allowed"`
+	Decision   string                `json:"decision"`
+	Matched    *CheckMatchedResponse `json:"matched,omitempty"`
+	ReasonCode string                `json:"reason_code"`
+}
+
+type CheckBulkResponse struct {
+	Checks []CheckBulkItemResponse `json:"checks"`
+}
+
 type CheckMatchedResponse struct {
 	Role         CheckMatchedRoleResponse  `json:"role"`
 	Scope        CheckMatchedScopeResponse `json:"scope"`
