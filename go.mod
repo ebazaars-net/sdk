@@ -1,4 +1,4 @@
-module sdk
+module github.com/ebazaars-net/sdk
 
 go 1.25.4
 

@@ -1,8 +1,8 @@
 package policy
 
 import (
+	m2 "github.com/ebazaars-net/sdk/src/service/policy/model"
 	"os"
-	m2 "sdk/src/service/policy/model"
 
 	"github.com/godispatcher/dispatcher/coordinator"
 	"github.com/godispatcher/dispatcher/model"
