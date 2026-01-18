@@ -18,7 +18,7 @@ type Policy struct {
 }
 
 func (s Policy) GetAddress() string {
-	if os.Getenv("POLICY_SERVICE_ADDRESS") != "" {
+	if s.Address == "" && os.Getenv("POLICY_SERVICE_ADDRESS") != "" {
 		return os.Getenv("POLICY_SERVICE_ADDRESS")
 	}
 
