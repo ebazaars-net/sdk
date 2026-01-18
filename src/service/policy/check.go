@@ -1,6 +1,7 @@
 package policy
 
 import (
+	"os"
 	m2 "sdk/src/service/policy/model"
 
 	"github.com/godispatcher/dispatcher/coordinator"
@@ -16,6 +17,14 @@ type Policy struct {
 	Licence string
 }
 
+func (s Policy) GetAddress() string {
+	if os.Getenv("POLICY_SERVICE_ADDRESS") != "" {
+		return os.Getenv("POLICY_SERVICE_ADDRESS")
+	}
+
+	return s.Address
+}
+
 func (s Policy) Check(req m2.CheckRequest) (*m2.CheckResponse, error) {
 	form := model.DocumentForm{}
 	err := form.FromInterface(req)
@@ -23,7 +32,7 @@ func (s Policy) Check(req m2.CheckRequest) (*m2.CheckResponse, error) {
 		return nil, err
 	}
 	requester := coordinator.ServiceRequest[m2.CheckRequest, m2.CheckResponse]{
-		Address: s.Address,
+		Address: s.GetAddress(),
 		Document: model.Document{
 			Department:  DEPARTMENT,
 			Transaction: "check",
@@ -44,7 +53,7 @@ func (s Policy) CheckChain(req m2.CheckChainRequest) (*m2.CheckChainResponse, er
 		return nil, err
 	}
 	requester := coordinator.ServiceRequest[m2.CheckChainRequest, m2.CheckChainResponse]{
-		Address: s.Address,
+		Address: s.GetAddress(),
 		Document: model.Document{
 			Department:  DEPARTMENT,
 			Transaction: "checkChain",
@@ -65,7 +74,7 @@ func (s Policy) CheckBulk(req m2.CheckBulkRequest) (*m2.CheckBulkResponse, error
 		return nil, err
 	}
 	requester := coordinator.ServiceRequest[m2.CheckBulkRequest, m2.CheckBulkResponse]{
-		Address: s.Address,
+		Address: s.GetAddress(),
 		Document: model.Document{
 			Department:  DEPARTMENT,
 			Transaction: "checkBulk",
